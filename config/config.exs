@@ -17,6 +17,27 @@ config :gamedex, Gamedex.Endpoint,
   pubsub: [name: Gamedex.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :guardian, Guardian,
+  issuer: "Gamedev.#{Mix.env}",
+  ttl: {30, :days},
+  verify_issuer: true,
+  serializer: Gamedex.GuardianSerializer,
+  secret_key: to_string(Mix.env),
+  hooks: GuardianDb,
+  permissions: %{
+    default: [
+      :read_profile,
+      :write_profile,
+      :read_token,
+      :revoke_token,
+    ],
+  }
+
+
+config :guardian_db, GuardianDb,
+  repo: PhoenixGuardian.Repo,
+  sweep_interval: 60 # 60 minutes
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

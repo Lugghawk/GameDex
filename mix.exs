@@ -18,8 +18,23 @@ defmodule Gamedex.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Gamedex, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+     applications: [:phoenix,
+      :phoenix_pubsub,
+      :phoenix_html,
+      :cowboy,
+      :logger,
+      :gettext,
+      :phoenix_ecto,
+      :postgrex,
+      :comeonin,
+      :oauth2,
+      :ueberauth,
+      :ueberauth_facebook,
+      :ueberauth_github,
+      :ueberauth_google,
+      :ueberauth_identity,
+      :ueberauth_slack,
+    ]]
   end
 
   # Specifies which paths to compile per environment.
@@ -37,7 +52,17 @@ defmodule Gamedex.Mixfile do
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:guardian_db, "~> 0.7"},
+     {:guardian, "~> 0.12.0"},
+     {:ueberauth, github: "ueberauth/ueberauth", override: true},
+     {:ueberauth_github, "~>0.2.0"},
+     {:ueberauth_identity, "~>0.2.3"},
+     {:ueberauth_slack, "~>0.2.0"},
+     {:ueberauth_google, "~> 0.2"},
+     {:ueberauth_facebook, "~> 0.3.2"},
+     {:comeonin, "~> 2.4"},
+     {:gettext, "~> 0.9"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
