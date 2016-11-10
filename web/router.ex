@@ -28,11 +28,15 @@ defmodule Gamedex.Router do
     plug Guardian.Plug.LoadResource
   end
 
+  pipeline :impersonation_browser_auth do
+    plug Guardian.Plug.VerifySession, key: :admin
+  end
+
   scope "/", Gamedex do
     pipe_through [:browser, :browser_auth] # Use the default browser stack
 
     get "/", PageController, :index
-    delete "/", AuthController, :logout
+    delete "/logout", AuthController, :logout
 
     resources "/users", UserController
     resources "/authorizations", AuthorizationController
@@ -42,7 +46,7 @@ defmodule Gamedex.Router do
   end
 
   scope "/auth", Gamedex do
-    pipe_through [:browser, :browser_auth]
+    pipe_through [:browser, :browser_auth, :impersonation_browser_auth]
 
     get "/:identity", AuthController, :login
     get "/:identity/callback", AuthController, :callback

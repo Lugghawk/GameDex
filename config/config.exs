@@ -18,14 +18,19 @@ config :gamedex, Gamedex.Endpoint,
            adapter: Phoenix.PubSub.PG2]
 
 config :ueberauth, Ueberauth,
-  base_path: "/login", # default is "/auth"
   providers: [
-    identity: {Ueberauth.Strategies.Identity, [request_path: "/login/identity",
-                                               callback_path: "/login/identity/callback"]}
+    google: {Ueberauth.Strategy.Google, []},
+    #facebook: {Ueberauth.Strategy.Facebook, [profile_fields: "email, name"]},
+    identity: {Ueberauth.Strategy.Identity, [callback_methods: ["POST"]]},
   ]
 
+
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: System.get_env("GOOGLE_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
+
 config :guardian, Guardian,
-  issuer: "Gamedev.#{Mix.env}",
+  issuer: "Gamedex.#{Mix.env}",
   ttl: {30, :days},
   verify_issuer: true,
   serializer: Gamedex.GuardianSerializer,
@@ -40,9 +45,8 @@ config :guardian, Guardian,
     ],
   }
 
-
 config :guardian_db, GuardianDb,
-  repo: PhoenixGuardian.Repo,
+  repo: Gamedex.Repo,
   sweep_interval: 60 # 60 minutes
 
 # Configures Elixir's Logger

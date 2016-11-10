@@ -59,7 +59,7 @@ defmodule Gamedex.Mixfile do
      {:ueberauth_github, "~>0.2.0"},
      {:ueberauth_identity, "~>0.2.3"},
      {:ueberauth_slack, "~>0.2.0"},
-     {:ueberauth_google, "~> 0.2"},
+     {:ueberauth_google, "~> 0.4"},
      {:ueberauth_facebook, "~> 0.3.2"},
      {:comeonin, "~> 2.4"},
      {:gettext, "~> 0.9"}]

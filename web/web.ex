@@ -46,8 +46,12 @@ defmodule Gamedex.Web do
   def controller do
     quote do
       use Phoenix.Controller
+      use Guardian.Phoenix.Controller
 
       alias Gamedex.Repo
+      alias Guardian.Plug.EnsureAuthenticated
+      alias Guardian.Plug.EnsurePermissions
+
       import Ecto
       import Ecto.Query
 
@@ -70,6 +74,7 @@ defmodule Gamedex.Web do
       import Gamedex.Router.Helpers
       import Gamedex.ErrorHelpers
       import Gamedex.Gettext
+      import Gamedex.ViewHelpers
     end
   end
 
