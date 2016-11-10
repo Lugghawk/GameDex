@@ -1,3 +1,3 @@
-defmodule PhoenixGuardian.Admin.UserView do
-  use PhoenixGuardian.Web, :view
+defmodule Gamedex.Admin.UserView do
+  use Gamedex.Web, :view
 end

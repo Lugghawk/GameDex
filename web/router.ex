@@ -49,6 +49,22 @@ defmodule Gamedex.Router do
     post "/:identity/callback", AuthController, :callback
   end
 
+  # This scope is intended for admin users.
+  # Normal users can only go to the login page
+  scope "/admin", Gamedex.Admin, as: :admin do
+    pipe_through [:browser, :admin_browser_auth] # Use the default browser stack
+
+    get "/login", SessionController, :new, as: :login
+    get "/login/:identity", SessionController, :new
+    post "/auth/:identity/callback", SessionController, :callback
+    get "/logout", SessionController, :logout
+    delete "/logout", SessionController, :logout, as: :logout
+    post "/impersonate/:user_id", SessionController, :impersonate, as: :impersonation
+    delete "/impersonate", SessionController, :stop_impersonating
+
+    resources "/users", UserController
+  end
+
 
 
   # Other scopes may use custom stacks.

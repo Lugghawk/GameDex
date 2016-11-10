@@ -55,7 +55,7 @@ defmodule Gamedex.Mixfile do
      {:cowboy, "~> 1.0"},
      {:guardian_db, "~> 0.7"},
      {:guardian, "~> 0.12.0"},
-     {:ueberauth, github: "ueberauth/ueberauth", override: true},
+     {:ueberauth, "~> 0.4"},
      {:ueberauth_github, "~>0.2.0"},
      {:ueberauth_identity, "~>0.2.3"},
      {:ueberauth_slack, "~>0.2.0"},

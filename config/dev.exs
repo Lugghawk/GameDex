@@ -37,7 +37,7 @@ config :phoenix, :stacktrace_depth, 20
 config :gamedex, Gamedex.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "password1",
+  password: "postgres",
   database: "gamedex_dev",
   hostname: "localhost",
   pool_size: 10

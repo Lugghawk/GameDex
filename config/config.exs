@@ -17,6 +17,13 @@ config :gamedex, Gamedex.Endpoint,
   pubsub: [name: Gamedex.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :ueberauth, Ueberauth,
+  base_path: "/login", # default is "/auth"
+  providers: [
+    identity: {Ueberauth.Strategies.Identity, [request_path: "/login/identity",
+                                               callback_path: "/login/identity/callback"]}
+  ]
+
 config :guardian, Guardian,
   issuer: "Gamedev.#{Mix.env}",
   ttl: {30, :days},

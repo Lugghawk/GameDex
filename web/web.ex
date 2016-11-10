@@ -26,6 +26,23 @@ defmodule Gamedex.Web do
     end
   end
 
+  def admin_controller do
+    quote do
+      use Phoenix.Controller, namespace: Gamedex.Admin
+      use Guardian.Phoenix.Controller, key: :admin
+
+      alias Gamedex.Repo
+      alias Guardian.Plug.EnsureAuthenticated
+      alias Guardian.Plug.EnsurePermissions
+
+      import Ecto.Schema
+      import Ecto.Query, only: [from: 1, from: 2]
+
+      import Gamedex.Router.Helpers
+      import Gamedex.Controller.Helpers
+    end
+  end
+
   def controller do
     quote do
       use Phoenix.Controller
@@ -36,6 +53,7 @@ defmodule Gamedex.Web do
 
       import Gamedex.Router.Helpers
       import Gamedex.Gettext
+      import Gamedex.Controller.Helpers
     end
   end
 
