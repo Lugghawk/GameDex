@@ -39,6 +39,7 @@ defmodule Gamedex.Router do
     delete "/logout", AuthController, :logout
 
     resources "/users", UserController
+    resources "/games", GameController
     resources "/authorizations", AuthorizationController
     resources "/tokens", TokenController
 
@@ -60,6 +61,8 @@ defmodule Gamedex.Router do
 
     get "/login", SessionController, :new, as: :login
     get "/login/:identity", SessionController, :new
+    get "/auth/:identity", SessionController, :new, as: :login
+    get "/auth/:identity/callback", SessionController, :callback
     post "/auth/:identity/callback", SessionController, :callback
     get "/logout", SessionController, :logout
     delete "/logout", SessionController, :logout, as: :logout

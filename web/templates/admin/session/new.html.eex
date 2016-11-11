@@ -1,5 +1,10 @@
 <h1>Admin Login</h1>
 <%= form_tag admin_session_path(@conn, :callback, "identity"), method: "post", class: "login" do %>
+  <p>
+  <a class="btn btn-primary col-xs-12" href="<%= admin_login_path(@conn, :new, "google",  []) %>">
+    <i class='fa fa-google'></i>
+    Google
+  </a>
   <div class='control-group'>
     <label class='control-label' for='email-input'>Email</label>
     <input class='form-control' type='email' name='email' value='<%= @conn.params["email"] %>' required/>

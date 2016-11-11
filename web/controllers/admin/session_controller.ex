@@ -13,7 +13,7 @@ defmodule Gamedex.Admin.SessionController do
   # We still want to use Ueberauth for checking the passwords etc
   # we have everything we need to check email / passwords and oauth already
   # but we only want to provide access for folks using email/pass
-  plug Ueberauth, base_path: "/admin/auth", providers: [:identity]
+  plug Ueberauth, base_path: "/admin/auth", providers: [:identity, :google]
 
   # Make sure that we have a valid token in the :admin area of the session
   # We've aliased Guardian.Plug.EnsureAuthenticated in our Gamedex.Web.admin_controller macro
@@ -34,7 +34,9 @@ defmodule Gamedex.Admin.SessionController do
   def callback(%Plug.Conn{assigns: %{ueberauth_auth: auth}} = conn, _params, current_user, _claims) do
     case UserFromAuth.get_or_insert(auth, current_user, Repo) do
       {:ok, user} ->
+        IO.inspect user
         if user.is_admin do
+          IO.inspect "Logging in as admin!!!"
           conn
           |> put_flash(:info, "Signed in as #{user.name}")
           |> Guardian.Plug.sign_in(user, :access, key: :admin, perms: %{default: Guardian.Permissions.max})
