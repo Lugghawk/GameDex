@@ -10,6 +10,8 @@ defmodule Gamedex.User do
 
     has_many :authorizations, Gamedex.Authorization
 
+    many_to_many :games, Gamedex.Game, join_through: "users_games"
+
     timestamps
   end
 
