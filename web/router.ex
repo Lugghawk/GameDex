@@ -38,6 +38,7 @@ defmodule Gamedex.Router do
     get "/", PageController, :index
     delete "/logout", AuthController, :logout
 
+    post "/users/:id", UserController, :add_game
     resources "/users", UserController
     resources "/games", GameController
     resources "/authorizations", AuthorizationController

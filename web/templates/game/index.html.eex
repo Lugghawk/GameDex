@@ -1,5 +1,10 @@
 <h2>Listing games</h2>
+<%= form_for @conn, user_path(@conn, :update, @current_user, []), [as: :update], fn g -> %>
 
+
+  <%= select g, :added_game, @addable_games %>
+  <%= submit "Submit", class: "btn btn-primary" %>
+<% end %>
 <table class="table">
   <thead>
     <tr>
