@@ -3,6 +3,8 @@ defmodule Gamedex.GameController do
 
   alias Gamedex.Game
 
+  plug EnsureAuthenticated, handler: __MODULE__, typ: "access"
+
   def index(conn, _params, current_user, _claims) do
     %{games: games} = Repo.preload(current_user, :games)
     render(conn, "index.html", games: games, current_user: current_user)
@@ -61,5 +63,11 @@ defmodule Gamedex.GameController do
     conn
     |> put_flash(:info, "Game deleted successfully.")
     |> redirect(to: game_path(conn, :index))
+  end
+
+  def unauthenticated(conn, _params) do
+    conn
+    |> put_flash(:error, "Not authenticated.")
+    |> redirect(to: auth_path(conn, :login, "identity"))
   end
 end
