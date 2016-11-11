@@ -6,10 +6,12 @@ defmodule Gamedex.AuthorizationController do
   alias Gamedex.Authorization
 
   def index(conn, params, current_user, _claims) do
+    auths = authorizations(current_user)
+    IO.inspect auths
     render conn, "index.html", current_user: current_user, authorizations: authorizations(current_user)
   end
 
   defp authorizations(user) do
-    Ecto.Model.assoc(user, :authorizations) |> Repo.all
+    Ecto.assoc(user, :authorizations) |> Repo.all
   end
 end
