@@ -4,7 +4,7 @@ defmodule Gamedex.GameController do
   alias Gamedex.Game
 
   def index(conn, _params, current_user, _claims) do
-    games = Repo.all(Game)
+    %{games: games} = Repo.preload(current_user, :games)
     render(conn, "index.html", games: games, current_user: current_user)
   end
 
