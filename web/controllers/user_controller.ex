@@ -17,8 +17,7 @@ defmodule Gamedex.UserController do
   end
 
   def add_game(conn, %{"update" => %{"added_game" => game_added} }, current_user, _claims) do
-    query = from g in Game, where: g.id == ^game_added
-    game = Repo.one(query)
+    game = Repo.get(Game, game_added)
     current_user = Repo.preload(current_user, :games)
     games = Enum.map([game | current_user.games], &Ecto.Changeset.change/1)
     changeset = Ecto.Changeset.change(current_user)

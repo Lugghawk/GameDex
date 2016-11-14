@@ -1,0 +1,22 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for game <- @games do %>
+      <tr>
+        <td><%= game.id %></td>
+        <td><%= game.name %></td>
+
+        <td class='text-right'>
+          <%= link "Show", to: admin_game_path(@conn, :show, game), class: "btn btn-default btn-xs" %>
+          <%= link "Edit", to: admin_game_path(@conn, :edit, game), class: "btn btn-default btn-xs" %>
+          <%= link "Delete", to: admin_game_path(@conn, :delete, game), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

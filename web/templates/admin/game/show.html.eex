@@ -1,0 +1,15 @@
+<h2>Show game</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @game.name %>
+  </li>
+
+</ul>
+
+<p><%= link "Edit", to: admin_game_path(@conn, :edit, @game) %></p>
+<p><%= link "Back", to: admin_game_path(@conn, :index) %></p>
+<p><%= link "Delete", to: admin_game_path(@conn, :delete, @game), method: :delete %></p>
+

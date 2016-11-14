@@ -71,6 +71,7 @@ defmodule Gamedex.Router do
     delete "/impersonate", SessionController, :stop_impersonating
 
     resources "/users", UserController
+    resources "/games", GameController
   end
 
 
