@@ -19,10 +19,11 @@ defmodule Gamedex.UserController do
   def add_game(conn, %{"update" => %{"added_game" => game_added} }, current_user, _claims) do
     query = from g in Game, where: g.id == ^game_added
     game = Repo.one(query)
-    changeset = Repo.preload(current_user, :games)
-    |> User.changeset(%{})
-    |> Ecto.Changeset.put_assoc(:games, [game])
-    |> Repo.update
+    current_user = Repo.preload(current_user, :games)
+    games = Enum.map([game | current_user.games], &Ecto.Changeset.change/1)
+    changeset = Ecto.Changeset.change(current_user)
+    |> Ecto.Changeset.put_assoc(:games, games)
+    |> Repo.update!
 
     conn
     |> redirect(to: game_path(conn, :index))

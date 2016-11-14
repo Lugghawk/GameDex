@@ -7,7 +7,8 @@ defmodule Gamedex.GameController do
 
   def index(conn, _params, current_user, _claims) do
     %{games: games} = Repo.preload(current_user, :games)
-    addable_games = ["Foo": "foo"]
+    addable_games_query = from g in Game, left_join: us in assoc(g, :users), where: is_nil(us.id) or us.id != ^current_user.id
+    addable_games = Repo.all(addable_games_query) |> Enum.map(&{&1.name, &1.id})
     render(conn, "index.html", games: games, current_user: current_user, addable_games: addable_games)
   end
 

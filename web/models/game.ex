@@ -6,6 +6,7 @@ defmodule Gamedex.Game do
   schema "games" do
     field :name, :string
 
+    many_to_many :users, Gamedex.User, join_through: "users_games"
   end
 
   @required_fields ~w(name)a
